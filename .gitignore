@@ -1,0 +1,35 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Database & generated data
+*.db
+*.sqlite3
+data/
+exports/
+logs/
+test_exports/
+
+# Environment secrets
+.env
+.env.local
+*.env
+
+# Node / Frontend
+node_modules/
+dist/
+.vite/
+
+# Logs
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini

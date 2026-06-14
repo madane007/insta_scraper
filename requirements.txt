@@ -1,0 +1,42 @@
+# Core scraping
+instagrapi==2.0.0
+requests==2.31.0
+urllib3==2.1.0
+
+# Web framework & API
+flask==3.0.0
+flask-cors==4.0.0
+flask-sqlalchemy==3.1.1
+
+# Database
+sqlalchemy>=2.0.30
+python-dotenv==1.0.0
+
+# Authentication & security
+werkzeug==3.0.1
+pyjwt==2.13.0
+bcrypt>=4.2.0
+
+# Data processing
+pandas>=2.2.0
+python-dateutil==2.8.2
+Pillow>=10.0.0
+
+# Background jobs (optional, for later)
+celery==5.3.4
+redis==5.0.1
+
+# Utilities
+pydantic==1.10.9
+
+# Logging & monitoring
+python-json-logger==2.0.7
+
+# Testing
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# Development
+black==23.12.0
+flake8==6.1.0
+mypy==1.7.1
