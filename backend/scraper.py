@@ -160,9 +160,9 @@ class InstagramHashtagScraper:
         try:
             post_url = f"https://www.instagram.com/p/{media.code}/"
             timestamp = self._format_timestamp(media.taken_at)
-            caption = media.caption or ""
+            caption = media.caption_text or ""
             likes_count = media.like_count or 0
-            comments_count = media.comments_count or 0
+            comments_count = media.comment_count or 0
             post_type = self._get_post_type(media)
 
             return InstagramPost(

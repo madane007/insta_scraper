@@ -9,6 +9,7 @@ from functools import wraps
 import bcrypt
 import jwt
 import logging
+from sqlalchemy.exc import IntegrityError
 
 logger = logging.getLogger(__name__)
 
@@ -99,9 +100,11 @@ def register():
     db = current_app.db
 
     # Check if username or email already exists
-    existing_user = db.get_user(username)
-    if existing_user:
+    if db.get_user(username):
         return jsonify({'error': 'Username already taken'}), 409
+
+    if db.get_user_by_email(email):
+        return jsonify({'error': 'Email already registered'}), 409
 
     # Create user
     try:
@@ -115,6 +118,12 @@ def register():
             'token': token,
             'user': {'id': user.id, 'username': user.username, 'email': user.email}
         }), 201
+
+    except IntegrityError:
+        # Unique constraint hit between the checks above and the insert
+        # (concurrent registration). Treat as a duplicate, not a server error.
+        logger.warning(f"Registration conflict for username={username}, email={email}")
+        return jsonify({'error': 'Username or email already registered'}), 409
 
     except Exception as e:
         logger.error(f"Registration error: {e}")

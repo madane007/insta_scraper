@@ -174,6 +174,22 @@ class Database:
         finally:
             session.close()
 
+    def get_user_by_email(self, email: str) -> Optional[User]:
+        """
+        Get user by email.
+
+        Like get_user(), expunge() detaches the object so attributes
+        remain accessible after the session closes.
+        """
+        session = self.get_session()
+        try:
+            user = session.query(User).filter_by(email=email).first()
+            if user:
+                session.expunge(user)
+            return user
+        finally:
+            session.close()
+
     def create_job(
         self,
         user_id: int,
@@ -256,6 +272,7 @@ class Database:
 
             session.commit()
             session.refresh(job)
+            session.expunge(job)  # detach cleanly so attributes stay readable after close
             logger.info(f"Job updated: {job_uuid} -> {status}")
             return job
         finally:
